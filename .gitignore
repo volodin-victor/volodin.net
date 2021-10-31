@@ -5,6 +5,9 @@ app/storage/
 node_modules/
 /ssh-keys/
 /.vagrant/
+
+/laradock/
+
 npm-debug.log
 yarn-error.log
 /public/hot
@@ -28,4 +31,5 @@ routes.txt
 Vagrantfile
 aliases
 after.sh
-composer.lock
+
+

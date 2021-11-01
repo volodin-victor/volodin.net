@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Actor;
 use App\Models\Category;
 use App\Models\Film;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class FilmController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -21,7 +23,7 @@ class FilmController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -31,8 +33,8 @@ class FilmController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -42,8 +44,8 @@ class FilmController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function show($id)
     {
@@ -53,8 +55,8 @@ class FilmController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function edit($id)
     {
@@ -64,9 +66,9 @@ class FilmController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -76,8 +78,8 @@ class FilmController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function destroy($id)
     {
@@ -92,5 +94,25 @@ class FilmController extends Controller
     public function getCategory($id)
     {
         return Film::find($id)->categories()->get();
+    }
+
+    public function getFilmLanguage($id)
+    {
+        return Film::find($id)->language()->get();
+    }
+
+    public function getFilmActors($id)
+    {
+        return Film::find($id)->actors()->get();
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getActorFilms($id)
+    {
+        // retrieves all related Models
+        return Actor::find($id)->films()->get()->fresh('language', 'categories', 'actors');
     }
 }

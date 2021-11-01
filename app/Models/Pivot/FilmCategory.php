@@ -2,11 +2,8 @@
 
 namespace App\Models\Pivot;
 
-use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class FilmCategory extends Pivot
+class FilmCategory extends AbstractPivotModel
 {
     protected $table = 'film_category';
-    public $incrementing = true;
-
 }

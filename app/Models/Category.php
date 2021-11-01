@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Pivot\FilmCategory;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Category extends AbstractModel
 {
@@ -14,6 +15,9 @@ class Category extends AbstractModel
         'name',
     ];
 
+    /**
+     * @return HasManyThrough
+     */
     public function films()
     {
         return $this

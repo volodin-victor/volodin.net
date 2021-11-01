@@ -12,4 +12,12 @@ class Language extends AbstractModel
         'name',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function films()
+    {
+        return $this->hasMany(Film::class, 'language_id', $this->primaryKey);
+    }
+
 }

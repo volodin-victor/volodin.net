@@ -2,7 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Pivot\FilmActor;
 use App\Models\Pivot\FilmCategory;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Film extends AbstractModel
 {
@@ -24,6 +28,9 @@ class Film extends AbstractModel
         'fulltext',
     ];
 
+    /**
+     * @return HasOneThrough
+     */
     public function categories()
     {
         return $this->hasOneThrough(
@@ -32,7 +39,31 @@ class Film extends AbstractModel
             'film_id',
             'category_id',
             $this->primaryKey,
-            'category_id');
+            'category_id'
+        );
+    }
+
+    /**
+     * @return HasManyThrough
+     */
+    public function actors()
+    {
+        return $this->hasManyThrough(
+            Actor::class,
+            FilmActor::class,
+            'film_id',
+            'actor_id',
+            $this->primaryKey,
+            'actor_id'
+        );
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function language()
+    {
+        return $this->hasOne(Language::class, 'language_id', 'language_id');
     }
 
 }
